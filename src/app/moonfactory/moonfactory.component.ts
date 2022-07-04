@@ -2,7 +2,7 @@ import { Component, OnInit , Input, AfterViewInit} from '@angular/core';
 //import { gsap, TweenLite } from "gsap/all";
 //import { Draggable } from "gsap/Draggable";
 
-import { moonFactoryAPI, moonFactorySetup} from "./moonFactoryAPI";
+import { moonFactoryAPI, moonFactorySetup} from "./moonfactoryAPI";
 
 
 @Component({
