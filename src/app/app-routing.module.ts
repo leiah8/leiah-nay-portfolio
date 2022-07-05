@@ -8,10 +8,10 @@ import { Moongame1Component } from './moongame1/moongame1.component';
 
 
 const routes: Routes = [
-  { path: 'renderer', component: ContainerComponent },
+  { path: 'moonGame', component: ContainerComponent },
   { path: 'moonFactory', component: MoonfactoryComponent },
   { path: 'planetFactory', component: PlanetfactoryComponent },
-  { path: 'moonGame', component: Moongame1Component }
+  //{ path: 'moonGame', component: Moongame1Component }
 ]
 
 @NgModule({
