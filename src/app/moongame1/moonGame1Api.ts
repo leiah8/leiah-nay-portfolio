@@ -255,21 +255,27 @@ export function gameAPI(_els, _setup) {
       //CHANGE TO PROPER TARGET IMG 
       this.sunPosLst.forEach(p => {
         let circ = document.createElementNS(this.svgns, "ellipse")
-        gsap.set(circ, { attr: { cx: p.x, cy: p.y, rx: 21, ry: 21, stroke: "#ffffff" }, strokeWidth: 2, fill: "none" });
+        gsap.set(circ, { attr: { cx: p.x, cy: p.y, rx: 21, ry: 21, stroke: "#ffffff" }, strokeWidth: 1.5, fill: "none" });
         this.layer0.appendChild(circ);
+      });
+
+      var targetPlanet = document.getElementById("targetPlanet");
+
+      this.planetPosLst.forEach(p => {
+        //let circ = document.createElementNS(this.svgns, "ellipse")
+        //gsap.set(circ, { attr: { cx: p.x, cy: p.y, rx: 10, ry: 10, stroke: "#ffffff" }, strokeWidth: 2, fill: "none" });
+        //this.layer0.appendChild(circ);
+        var temp = targetPlanet.cloneNode(true);
+        gsap.set(targetPlanet, {x : p.x - 102.9, y : p.y - 10.9, scale : 0.87});
+        this.layer0.appendChild(temp);
       });
 
       this.moonPosLst.forEach(p => {
         let circ = document.createElementNS(this.svgns, "ellipse")
-        gsap.set(circ, { attr: { cx: p.x, cy: p.y, rx: 5, ry: 5, stroke: "#ffffff" }, strokeWidth: 2, fill: "none" });
+        gsap.set(circ, { attr: { cx: p.x, cy: p.y, rx: 5, ry: 5, stroke: "#ffffff" }, strokeWidth: 1.5, fill: "none" });
         this.layer0.appendChild(circ);
       });
 
-      this.planetPosLst.forEach(p => {
-        let circ = document.createElementNS(this.svgns, "ellipse")
-        gsap.set(circ, { attr: { cx: p.x, cy: p.y, rx: 10, ry: 10, stroke: "#ffffff" }, strokeWidth: 2, fill: "none" });
-        this.layer0.appendChild(circ);
-      });
 
     }
 
