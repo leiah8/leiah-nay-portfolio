@@ -111,14 +111,17 @@ export function decomposeNumber(_els, _setup) {
         }
 
         togglePause(e) {
+            var name = e.target.getAttribute("id");
             if (e.target != this.goButton) {
-                if (this.T.paused()) {
-                    this.T.resume();
-                    console.log("resumed")
-                }
-                else if(this.animationStarted){
-                    this.T.pause();
-                    console.log("paused")
+                if (name != "goCircle" && name != "goTriangle") {
+                    if (this.T.paused()) {
+                        this.T.resume();
+                        console.log("resumed")
+                    }
+                    else if(this.animationStarted){
+                        this.T.pause();
+                        console.log("paused")
+                    }
                 }
             }
         }
