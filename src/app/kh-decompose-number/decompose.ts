@@ -155,7 +155,7 @@ export function decomposeNumber(_els, _setup) {
                 this.drawnElements.appendChild(decrementAsset)
 
                 let number = document.createElementNS(this.svgns, "text") as SVGTextElement
-                gsap.set(number, { attr: { id: 'text' + (i), class: 'number' }, x: numBBox.x - (numBBox.width / 2), y: numBBox.y + this.yTextOffset, fontFamily: 'Poppins', textContent: i, fontSize: this.textSize, opacity: 0 })
+                gsap.set(number, { attr: { id: 'text' + (i), class: 'number' }, x: numBBox.x - (numBBox.width / 2) + 50, y: numBBox.y + this.yTextOffset, fontFamily: 'Poppins', textContent: i, fontSize: this.textSize, opacity: 0 })
                 this.drawnElements.appendChild(number)
 
                 i -= decrementVal
