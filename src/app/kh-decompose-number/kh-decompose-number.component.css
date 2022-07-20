@@ -1,0 +1,21 @@
+.number {
+    alignment-baseline: text-before-edge;
+    text-anchor: start;
+    user-select: none;
+}
+
+#numberDisplay, #num, #buttons, #slider, #goButton, #restart {
+    cursor: pointer;
+    pointer-events: bounding-box;
+}
+
+#num, #minText, #maxText {
+    user-select:none
+}
+
+svg {
+    height: auto;
+    width:  auto;
+    max-width: 700px;
+    min-width: 300px;
+}

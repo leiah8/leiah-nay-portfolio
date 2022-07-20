@@ -8,6 +8,7 @@ import { ContainerComponent } from './container/container.component';
 import { MoonfactoryComponent } from './moonfactory/moonfactory.component';
 import { Moongame1Component } from './moongame1/moongame1.component';
 import { PlanetfactoryComponent } from './planetfactory/planetfactory.component';
+import { KhDecomposeNumberComponent } from './kh-decompose-number/kh-decompose-number.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { PlanetfactoryComponent } from './planetfactory/planetfactory.component'
     MoonfactoryComponent,
     Moongame1Component,
     PlanetfactoryComponent,
+    KhDecomposeNumberComponent,
   ],
   imports: [
     BrowserModule,

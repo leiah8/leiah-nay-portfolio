@@ -194,6 +194,7 @@ export function gameAPI(_els, _setup) {
     main() {
       gsap.set(this.covers, { visibility: "hidden" });
 
+      
       // ARROWS ///////////////////
       const up = document.getElementById("up") as HTMLElement;
       const down = document.getElementById("down") as HTMLElement;
