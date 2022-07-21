@@ -9,6 +9,7 @@ import { MoonfactoryComponent } from './moonfactory/moonfactory.component';
 import { Moongame1Component } from './moongame1/moongame1.component';
 import { PlanetfactoryComponent } from './planetfactory/planetfactory.component';
 import { KhDecomposeNumberComponent } from './kh-decompose-number/kh-decompose-number.component';
+import { DecomposeAsteroidsComponent } from './decompose-asteroids/decompose-asteroids.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { KhDecomposeNumberComponent } from './kh-decompose-number/kh-decompose-n
     Moongame1Component,
     PlanetfactoryComponent,
     KhDecomposeNumberComponent,
+    DecomposeAsteroidsComponent,
   ],
   imports: [
     BrowserModule,
