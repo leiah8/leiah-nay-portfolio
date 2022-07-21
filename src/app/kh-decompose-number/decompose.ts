@@ -22,7 +22,7 @@ export function decomposeNumber(_els, _setup) {
         animationFinished = false;
         animationStarted = false;
         drawnElements: SVGSVGElement
-        assetScale = 2;
+        assetScale = 1.8;
         goButton: SVGSVGElement
         yTextOffset = 50
         //#endregion
@@ -147,7 +147,7 @@ export function decomposeNumber(_els, _setup) {
                     currentAsset = this.refToThousand
                 }
                 let decrementText = document.createElementNS(this.svgns, "text") as SVGTextElement
-                gsap.set(decrementText, { attr: { id: 'decrementText' + (decrementNumID), class: "number" }, x: numBBox.x - (numBBox.width / 2), y: numBBox.y + this.yTextOffset, fontFamily: 'Poppins', textContent: decrementVal.toString(), fontSize: this.textSize, opacity: 0, fill: this.color })
+                gsap.set(decrementText, { attr: { id: 'decrementText' + (decrementNumID), class: "number" }, x: numBBox.x - (numBBox.width / 2) + 50, y: numBBox.y + this.yTextOffset, fontFamily: 'Poppins', textContent: decrementVal.toString(), fontSize: this.textSize, opacity: 0, fill: this.color })
                 this.drawnElements.appendChild(decrementText)
 
                 let decrementAsset = currentAsset.cloneNode(true);
@@ -219,8 +219,7 @@ export function decomposeNumber(_els, _setup) {
 
                     //MAKE CHANGE HERE
 
-                    //console.log(decrementVal);
-                    
+                                       
                     if (decrementVal == 1) {
                         this.T.set(decrementAsset, { x: xVal - 42, y: yVal - 38, opacity: 1 })
                     }
@@ -230,6 +229,7 @@ export function decomposeNumber(_els, _setup) {
                     else {
                         this.T.set(decrementAsset, { x: xVal, y: yVal, opacity: 1 })
                     }
+                    
 
                     //this.T.set(decrementAsset, { x: xVal, y: yVal, opacity: 1 })
                     
