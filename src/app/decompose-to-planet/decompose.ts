@@ -15,6 +15,11 @@ export function decomposeNumber(_els, _setup) {
         refToTen: HTMLElement
         refToHundred: HTMLElement
         refToThousand: HTMLElement
+
+        refToMoon : HTMLElement;
+        refToPlanet : HTMLElement;
+        refToSun : HTMLElement;
+
         textSize = 7;
         svgns = "http://www.w3.org/2000/svg";
         color = "#ff7f50";
@@ -50,6 +55,11 @@ export function decomposeNumber(_els, _setup) {
             this.refToTen = this.els.getElementById("ten") as HTMLElement;
             this.refToHundred = this.els.getElementById("hundred") as HTMLElement;
             this.refToThousand = this.els.getElementById("thousand") as HTMLElement;
+
+            this.refToMoon = this.els.getElementById("moon") as HTMLElement;
+            this.refToPlanet = this.els.getElementById("planet") as HTMLElement;
+            this.refToSun = this.els.getElementById("sun") as HTMLElement;
+
             this.drawnElements = this.els.getElementById("drawnElements") as SVGSVGElement
             this.T = gsap.timeline({ paused: false });
 
@@ -191,12 +201,19 @@ export function decomposeNumber(_els, _setup) {
                 let xVal = xOffset
                 let maxXVal = 0;
 
+                var assets = [];
+                var decrementValues = [];
+
                 this.animationStarted = true;
 
                 for (let i = startingNumber; i > decrementVal - 1;) {
 
                     let decrementText = this.els.getElementById('decrementText' + decrementNumID);
                     let decrementAsset = this.els.getElementById("decrementAsset" + decrementNumID) as SVGSVGElement;
+                    
+                    assets.push(decrementAsset);
+                    decrementValues.push(decrementVal);
+
                     let currentNum = '#text' + i;
                     let nextNum = '#text' + (i - decrementVal);
 
@@ -222,7 +239,7 @@ export function decomposeNumber(_els, _setup) {
                         this.T.set(decrementAsset, { x: xVal, y: yVal, opacity: 1, scale : 0})
                     }
                     else if (decrementVal == 10) {
-                        this.T.set(decrementAsset, { x: xVal, y: yVal, opacity: 1, scale : 0})
+                        this.T.set(decrementAsset, { x: xVal - 2, y: yVal, opacity: 1, scale : 0})
                     }
                     else if (decrementVal == 100){
                         this.T.set(decrementAsset, { x: xVal + 29, y: yVal - 4.2, opacity: 1, scale : 0})
@@ -253,7 +270,102 @@ export function decomposeNumber(_els, _setup) {
                     }
 
                 }
+
+                let wormHoleX = 199;
+                let wormHoleY = 79;
+
+                let spaceAssets = [];
+
+                xOffset = 210;
+                yOffset = 20;
+
+                yVal = yOffset
+                xVal = xOffset
+                assetRowCount = {100: 0, 10:0 , 1:0}
+                maxXVal = 0;
+
+                let deltaValues = {100: 40, 10:20 , 1:10}
+
+                this.T.to(this.refToOne, { duration : 1});
+
+                //ANIMATE PLANETS
+                for(var i = 0; i < decrementValues.length; i++) {
+
+                    decrementVal = decrementValues[i];
+
+                    if (assetRowCount[decrementVal] == 3) {//if we have filled row with 3 objects of unique type then proceed to next row
+                        assetRowCount[decrementVal] = 0;
+                        yVal += (deltaValues[decrementVal])
+                        xVal = xOffset
+                    }
+                    
+                    //determine planet
+                    var currentAsset;
+                    if (decrementVal == 1) {
+                        currentAsset = this.refToMoon.cloneNode(true);
+                        gsap.set(currentAsset, { attr: { id: 'spaceAsset' + (i) }, opacity : 1, x : wormHoleX, y : wormHoleY, scale : 0});
+                        this.drawnElements.appendChild(currentAsset);
+                        this.T.to(assets[i], {x : 150, y : wormHoleY, scale : 0, skewX : 30, duration : 1});
+                    
+                        this.T.to(currentAsset, {duration : 0.5});
+                        this.T.to(currentAsset, {scale : 1, x : xVal, y : yVal, duration : 0.75});
+                    
+                    }
+                    else if (decrementVal == 10) {
+                        currentAsset = this.refToPlanet.cloneNode(true);
+                        gsap.set(currentAsset, { attr: { id: 'spaceAsset' + (i) }, opacity : 1, x : wormHoleX, y : wormHoleY, scale : 0});
+                        this.drawnElements.appendChild(currentAsset);
+                        this.T.to(assets[i], {x : 150, y : wormHoleY, scale : 0, skewX : 30, duration : 1});
+                    
+                        this.T.to(currentAsset, {duration : 0.5});
+                        this.T.to(currentAsset, {scale : 1, x : xVal, y : yVal, duration : 0.75});
+                    
+                    }
+                    else if (decrementVal == 100) {
+                        currentAsset = this.refToSun.cloneNode(true);
+                        gsap.set(currentAsset, { attr: { id: 'spaceAsset' + (i) }, opacity : 1, x : wormHoleX - 109, y : wormHoleY - 220, scale : 0});
+                        this.drawnElements.appendChild(currentAsset);
+                        this.T.to(assets[i], {x : 180, y : wormHoleY, scale : 0, skewX : 30, duration : 1});
+                    
+                        this.T.to(currentAsset, {duration : 0.5});
+                        this.T.to(currentAsset, {scale : 3.5, x : xVal - 109, y : yVal - 220, duration : 0.75});
+                    
+                    }
+                    else {
+                        currentAsset = this.refToMoon.cloneNode(true);
+                        gsap.set(currentAsset, { attr: { id: 'spaceAsset' + (i) }, opacity : 1, x : wormHoleX, y : wormHoleY, scale : 0});
+                        this.drawnElements.appendChild(currentAsset);
+                        this.T.to(assets[i], {x : 150, y : wormHoleY, scale : 0, skewX : 30, duration : 1});
+                    
+                        this.T.to(currentAsset, {duration : 0.5});
+                        this.T.to(currentAsset, {scale : 1, x : xVal, y : yVal, duration : 0.75});
+                    
+                    }
+
+                    spaceAssets.push(currentAsset);
+
+                    xVal += (deltaValues[decrementVal])
+                    maxXVal = Math.max(maxXVal,xVal)//keep track of the furthest xValue
+                    assetRowCount[decrementVal]++;
+
+                    if (i+1 < decrementValues.length && decrementVal != decrementValues[i+1]){
+                        //if we are switching to a new asset
+                        yVal = yOffset //reset y value
+                        xOffset = maxXVal + 5 //set x to furthest x
+                        xVal = xOffset
+                    }
+
+                    
+                }
+
+
                 this.animationFinished = true;
+
+                gsap.registerPlugin(Draggable);
+
+                spaceAssets.forEach(el => {
+                    Draggable.create(el);
+                })
             }
         }
 

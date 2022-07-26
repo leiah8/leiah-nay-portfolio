@@ -19,3 +19,13 @@ svg {
     max-width: 1300px;
     min-width: 300px;
 }
+
+.B{fill:#dcdcdc}
+.C{fill:#828282}
+.D{fill:#7c133e}
+.E{fill:#fa3548}
+.F{fill:#ae1f4c}
+.G{stroke-linecap:round}
+.H{stroke-linejoin:round}
+.I{stroke-miterlimit:10}
+.J{fill:#fff555}
