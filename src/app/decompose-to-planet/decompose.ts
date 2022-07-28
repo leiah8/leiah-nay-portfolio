@@ -19,6 +19,7 @@ export function decomposeNumber(_els, _setup) {
         refToMoon : HTMLElement;
         refToPlanet : HTMLElement;
         refToSun : HTMLElement;
+        refToGalaxy : HTMLElement;
 
         textSize = 7;
         svgns = "http://www.w3.org/2000/svg";
@@ -43,7 +44,7 @@ export function decomposeNumber(_els, _setup) {
         maxText: SVGSVGElement
         sliderOpen = false;
         increment: number
-        max = 999;
+        max = 1000;//999;
         min = 0
         //#endregion
 
@@ -59,6 +60,7 @@ export function decomposeNumber(_els, _setup) {
             this.refToMoon = this.els.getElementById("moon") as HTMLElement;
             this.refToPlanet = this.els.getElementById("planet") as HTMLElement;
             this.refToSun = this.els.getElementById("sun") as HTMLElement;
+            this.refToGalaxy = this.els.getElementById("galaxy") as HTMLElement;
 
             this.drawnElements = this.els.getElementById("drawnElements") as SVGSVGElement
             this.T = gsap.timeline({ paused: false });
@@ -245,7 +247,7 @@ export function decomposeNumber(_els, _setup) {
                         this.T.set(decrementAsset, { x: xVal + 29, y: yVal - 4.2, opacity: 1, scale : 0})
                     }
                     else {
-                        this.T.set(decrementAsset, { x: xVal, y: yVal, opacity: 1, scale : 0})
+                        this.T.set(decrementAsset, { x: xVal + 5, y: yVal - 5, opacity: 1, scale : 0})
                     }
                     
 
@@ -332,13 +334,13 @@ export function decomposeNumber(_els, _setup) {
                     
                     }
                     else {
-                        currentAsset = this.refToMoon.cloneNode(true);
-                        gsap.set(currentAsset, { attr: { id: 'spaceAsset' + (i) }, opacity : 1, x : wormHoleX, y : wormHoleY, scale : 0});
+                        currentAsset = this.refToGalaxy.cloneNode(true);
+                        gsap.set(currentAsset, { attr: { id: 'spaceAsset' + (i) }, opacity : 1, x : wormHoleX + 80, y : wormHoleY - 10, scale : 0});
                         this.drawnElements.appendChild(currentAsset);
-                        this.T.to(assets[i], {x : 150, y : wormHoleY, scale : 0, skewX : 30, duration : 1});
+                        this.T.to(assets[i], {x : 155, y : wormHoleY - 5, scale : 0, skewX : 30, duration : 1});
                     
                         this.T.to(currentAsset, {duration : 0.5});
-                        this.T.to(currentAsset, {scale : 1, x : xVal, y : yVal, duration : 0.75});
+                        this.T.to(currentAsset, {scale : 3, x : xVal + 80, y : yVal, duration : 0.75});
                     
                     }
 
