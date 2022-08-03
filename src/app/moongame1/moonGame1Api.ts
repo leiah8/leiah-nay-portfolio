@@ -71,7 +71,7 @@ export function gameAPI(_els, _setup) {
     planetCoords = this.getRowCoords(5, 180, 30, 30).concat(this.getRowCoords(4, 180, 5, 30));
     moonCoords = this.getRowCoords(9, 160, 100, 15);
 
-    coordsM = this.getGridCoords(-101.4, -70.5, 10, 10, 10);
+    coordsM = this.getGridCoords(-101.4, -60.5, 10, 10, 10);
 
     constructor(els, setup) {
       self = this
