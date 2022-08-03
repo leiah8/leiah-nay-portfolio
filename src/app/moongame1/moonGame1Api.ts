@@ -48,6 +48,9 @@ export function gameAPI(_els, _setup) {
     layer0: HTMLElement;
     covers: HTMLElement;
 
+    modal : HTMLElement;
+    modalText : HTMLElement;
+
     totalNum: number;
     filledMeteors: filled[];
     blankMeteors: blank[];
@@ -96,6 +99,9 @@ export function gameAPI(_els, _setup) {
       this.layer = document.getElementById("layer1") as HTMLElement
       this.layer0 = document.getElementById("layer3") as HTMLElement
       this.covers = document.getElementById("coverBtns") as HTMLElement
+
+      this.modal = document.getElementById("modal") as HTMLElement
+      this.modalText = document.getElementById("modalText") as HTMLElement
 
       this.totalNum = 0
       this.filledMeteors = []
@@ -194,6 +200,28 @@ export function gameAPI(_els, _setup) {
     main() {
       gsap.set(this.covers, { visibility: "hidden" });
 
+      const exit = document.getElementById("exitBtn");
+      exit.addEventListener("click", function () { 
+          gsap.set(self.modal, {visibility : "hidden"});
+          //go back 
+        self.blankMeteors.forEach(obj => {
+          gsap.set(obj.el, { opacity: 1, duration: 0 });
+        });
+
+       gsap.set(self.covers, { visibility: "hidden", duration: 0 });
+      });
+
+      const reset = document.getElementById("modalClearBtn");
+      reset.addEventListener("click", function () {
+        self.clear();
+        //go back 
+        self.blankMeteors.forEach(obj => {
+          gsap.set(obj.el, { opacity: 1, duration: 0 });
+        });
+
+       gsap.set(self.covers, { visibility: "hidden", duration: 0 });
+      });
+
       
       // ARROWS ///////////////////
       const up = document.getElementById("up") as HTMLElement;
@@ -214,7 +242,6 @@ export function gameAPI(_els, _setup) {
       const clearBtn = document.getElementById("clearBtn") as HTMLElement;
       clearBtn.addEventListener('click', function () { self.clear() });
 
-      // BLOCKS //////////////////
       const blankMeteor = document.getElementById("blank-meteor-0") as HTMLElement;
 
       //meteors///////////////////
@@ -263,10 +290,7 @@ export function gameAPI(_els, _setup) {
       var targetPlanet = document.getElementById("targetPlanet");
 
       this.planetPosLst.forEach(p => {
-        //let circ = document.createElementNS(this.svgns, "ellipse")
-        //gsap.set(circ, { attr: { cx: p.x, cy: p.y, rx: 10, ry: 10, stroke: "#ffffff" }, strokeWidth: 2, fill: "none" });
-        //this.layer0.appendChild(circ);
-        var temp = targetPlanet.cloneNode(true);
+       var temp = targetPlanet.cloneNode(true);
         gsap.set(targetPlanet, {x : p.x - 102.9, y : p.y - 10.9, scale : 0.87});
         this.layer0.appendChild(temp);
       });
@@ -295,16 +319,15 @@ export function gameAPI(_els, _setup) {
 
           if (numSuns*100 + numPlanets*10 + numMoons == this.sunTargetNum*100 + this.planetTargetNum*10 + this.moonTargetNum){
             //correct
-            window.alert("Well Done!");
-          }
-          else if (numSuns*100 + numPlanets*10 + numMoons > this.sunTargetNum*100 + this.planetTargetNum*10 + this.moonTargetNum){
-            //try again, too many meteors
-            window.alert("Try Again");
-
+            self.modalText.textContent = "Well Done!";
+            gsap.set(self.modal, {visibility : "visible"});
+            //window.alert("Well Done!");
           }
           else {
             //try again, not enough meteors
-            window.alert("Try Again");
+            //window.alert("Try Again");
+            self.modalText.textContent = "Try Again";
+            gsap.set(self.modal, {visibility : "visible"});
           }
 
         }
@@ -431,12 +454,16 @@ export function gameAPI(_els, _setup) {
         }
 
       }
+
+      /*
       //go back 
       this.blankMeteors.forEach(obj => {
         this.tl.to(obj.el, { opacity: 1, duration: 0 });
       });
 
       this.tl.to(this.covers, { visibility: "hidden", duration: 0 });
+      */
+      
       this.tl.play();
 
       this.totalNum = 0;
@@ -462,6 +489,7 @@ export function gameAPI(_els, _setup) {
     }
 
     clear() {
+      gsap.set(this.modal, {visibility : "hidden"});
       this.sunArr.forEach(el => {
         //el.remove();
         gsap.set(el, { visibility: "hidden" });
