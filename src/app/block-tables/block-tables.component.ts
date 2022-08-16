@@ -1,25 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { blocksAPI, blocksSetup} from "./blocks-api";
 
-
-/*
-
-export class MoonfactoryComponent implements AfterViewInit {
-
-  constructor() { }
-
-  ngAfterViewInit(): void {
-
-    const setup = {
-    } as moonFactorySetup
-
-    const els = null; //this.renderEl.nativeElement; 
-    const interactive = moonFactoryAPI(els, setup);
-  }
-
-}
-
-*/
 @Component({
   selector: 'app-block-tables',
   templateUrl: './block-tables.component.html',
@@ -32,6 +13,7 @@ export class BlockTablesComponent implements AfterViewInit {
   ngAfterViewInit(): void {
 
     const setup = {
+      version : ""
     } as blocksSetup
 
     const els = null; //this.renderEl.nativeElement; 
@@ -43,7 +25,7 @@ export class BlockTablesComponent implements AfterViewInit {
 
 @Component({
   selector: 'app-block-tables',
-  templateUrl: './block-tables.component.html',
+  templateUrl:  './block-tables.component.html',
   styleUrls: ['./block-tables.component.css']
 })
 export class HundredsTableComponent implements AfterViewInit {
@@ -51,13 +33,20 @@ export class HundredsTableComponent implements AfterViewInit {
   constructor() { }
 
   ngAfterViewInit(): void {
+
+    const setup = {
+      version : "hundredsChart"
+    } as blocksSetup
+
+    const els = null; //this.renderEl.nativeElement; 
+    const interactive = blocksAPI(els, setup);
   }
 
 }
 
 @Component({
   selector: 'app-block-tables',
-  templateUrl: './block-tables.component.html',
+  templateUrl: './1000s-char.componenet.html',
   styleUrls: ['./block-tables.component.css']
 })
 export class ThousandsTableComponent implements AfterViewInit {
@@ -65,13 +54,19 @@ export class ThousandsTableComponent implements AfterViewInit {
   constructor() { }
 
   ngAfterViewInit(): void {
-  }
 
+    const setup = {
+      version : "thousandsChart"
+    } as blocksSetup
+
+    const els = null; //this.renderEl.nativeElement; 
+    const interactive = blocksAPI(els, setup);
+  }
 }
 
 @Component({
   selector: 'app-block-tables',
-  templateUrl: './block-tables.component.html',
+  templateUrl: './decimal-chart.component.html', 
   styleUrls: ['./block-tables.component.css']
 })
 export class DecimalTableComponent implements AfterViewInit {
@@ -79,6 +74,13 @@ export class DecimalTableComponent implements AfterViewInit {
   constructor() { }
 
   ngAfterViewInit(): void {
+
+    const setup = {
+      version : "decimalsChart"
+    } as blocksSetup
+
+    const els = null; //this.renderEl.nativeElement; 
+    const interactive = blocksAPI(els, setup);
   }
 
 }
