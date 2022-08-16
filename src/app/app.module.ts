@@ -11,6 +11,7 @@ import { PlanetfactoryComponent } from './planetfactory/planetfactory.component'
 import { KhDecomposeNumberComponent } from './kh-decompose-number/kh-decompose-number.component';
 import { DecomposeAsteroidsComponent } from './decompose-asteroids/decompose-asteroids.component';
 import { DecomposeToPlanetComponent } from './decompose-to-planet/decompose-to-planet.component';
+import { BlockTablesComponent } from './block-tables/block-tables.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { DecomposeToPlanetComponent } from './decompose-to-planet/decompose-to-p
     KhDecomposeNumberComponent,
     DecomposeAsteroidsComponent,
     DecomposeToPlanetComponent,
+    BlockTablesComponent,
   ],
   imports: [
     BrowserModule,
