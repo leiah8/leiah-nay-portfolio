@@ -84,3 +84,24 @@ export class DecimalTableComponent implements AfterViewInit {
   }
 
 }
+
+@Component({
+  selector: 'app-block-tables',
+  templateUrl: './arrows-100s-chart.component.html' , 
+  styleUrls: ['./block-tables.component.css']
+})
+export class HundredsArrowsComponent implements AfterViewInit {
+
+  constructor() { }
+
+  ngAfterViewInit(): void {
+
+    const setup = {
+      version : "arrowsHundredsChart"
+    } as blocksSetup
+
+    const els = null; //this.renderEl.nativeElement; 
+    const interactive = blocksAPI(els, setup);
+  }
+
+}

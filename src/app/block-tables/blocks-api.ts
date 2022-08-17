@@ -101,11 +101,11 @@ export function blocksAPI(_els, _setup) {
             this.main()
         }
 
-        gridCoords(xVal, yVal, deltaX, deltaY) {
+        gridCoords(xVal, yVal, deltaX, deltaY, rows, cols) {
             var coords = [];
 
-            for (var i = 0; i < 3; i++) {
-                for (var j = 0; j < 3; j++) {
+            for (var i = 0; i < rows; i++) {
+                for (var j = 0; j < cols; j++) {
                     coords.push({x : xVal + j * deltaX, y : yVal + i*deltaY})
                 }
             }
@@ -113,9 +113,9 @@ export function blocksAPI(_els, _setup) {
             return coords;
         }
 
-        colCoords(xVal, yVal, deltaY) {
+        colCoords(xVal, yVal, deltaY, rows) {
             var coords = []; 
-            for (var i = 0; i < 9; i++) {
+            for (var i = 0; i < rows; i++) {
                 coords.push({x : xVal, y : yVal + i*deltaY})
             }
 
@@ -243,6 +243,10 @@ export function blocksAPI(_els, _setup) {
                 self.textXVal = 44;
                 self.decimalChartSetup()
             }
+            else if (this.setup.version == "arrowsHundredsChart") {
+                self.textXVal = 35;
+                self.hundredArrowsSetup()
+            }
 
         }
 
@@ -251,7 +255,7 @@ export function blocksAPI(_els, _setup) {
             this.updateText()
             this.restartBtn.addEventListener('click', function() {self.clear()});
 
-            var hundredCoords = this.gridCoords(0, 0, 98, 145);
+            var hundredCoords = this.gridCoords(0, 0, 98, 145,3,3);
             this.addBlankBlocks(hundredCoords, 100);
 
             this.blankHundreds.forEach(block => {
@@ -263,7 +267,7 @@ export function blocksAPI(_els, _setup) {
 
 
 
-            var tenCoords = this.colCoords(0, 383.5, 46.5);
+            var tenCoords = this.colCoords(0, 383.5, 46.5,9);
             this.addBlankBlocks(tenCoords, 10);
 
             this.blankTens.forEach(block => {
@@ -274,7 +278,7 @@ export function blocksAPI(_els, _setup) {
 
 
 
-            var oneCoords = this.gridCoords(0, 0, 45, 140);
+            var oneCoords = this.gridCoords(0, 0, 45, 140,3,3);
             this.addBlankBlocks(oneCoords, 1);
 
             this.blankOnes.forEach(block => {
@@ -290,7 +294,7 @@ export function blocksAPI(_els, _setup) {
             this.restartBtn.addEventListener('click', function() {self.clear()});
 
 
-            var thousandCoords = this.gridCoords(-4.5, 0, 98, 145);
+            var thousandCoords = this.gridCoords(-4.5, 0, 98, 145,3,3);
             this.addBlankBlocks(thousandCoords, 1000);
             
             this.blankThousands.forEach(block => {
@@ -300,7 +304,7 @@ export function blocksAPI(_els, _setup) {
             })
             
 
-            var hundredCoords = this.gridCoords(0, 0, 102, 145);
+            var hundredCoords = this.gridCoords(0, 0, 102, 145,3,3);
             this.addBlankBlocks(hundredCoords, 100);
 
             this.blankHundreds.forEach(block => {
@@ -310,7 +314,7 @@ export function blocksAPI(_els, _setup) {
                 })
             })
 
-            var tenCoords = this.colCoords(180, 0, 46.5);
+            var tenCoords = this.colCoords(180, 0, 46.5,9);
             this.addBlankBlocks(tenCoords, 10);
 
             this.blankTens.forEach(block => {
@@ -321,7 +325,7 @@ export function blocksAPI(_els, _setup) {
 
 
 
-            var oneCoords = this.gridCoords(307, 1, 45, 140);
+            var oneCoords = this.gridCoords(307, 1, 45, 140,3,3);
             this.addBlankBlocks(oneCoords, 1);
 
             this.blankOnes.forEach(block => {
@@ -335,7 +339,7 @@ export function blocksAPI(_els, _setup) {
             this.updateText()
             this.restartBtn.addEventListener('click', function() {self.clear()});
 
-            var oneCoords = this.gridCoords(0, 0, 98, 145);
+            var oneCoords = this.gridCoords(0, 0, 98, 145,3,3);
             this.addBlankBlocks(oneCoords, 1);
 
             this.blankOnes.forEach(block => {
@@ -344,7 +348,7 @@ export function blocksAPI(_els, _setup) {
                 })
             })
 
-            var tenthCoords = this.colCoords(0, 0, 46.5);
+            var tenthCoords = this.colCoords(0, 0, 46.5,9);
             this.addBlankBlocks(tenthCoords, 0.1);
 
             this.blankTenths.forEach(block => {
@@ -353,7 +357,7 @@ export function blocksAPI(_els, _setup) {
                 })
             })
 
-            var hundredthCoords = this.gridCoords(0, 0, 45, 140);
+            var hundredthCoords = this.gridCoords(0, 0, 45, 140,3,3);
             this.addBlankBlocks(hundredthCoords, 0.01);
 
             this.blankHundredths.forEach(block => {
@@ -363,6 +367,39 @@ export function blocksAPI(_els, _setup) {
             })
 
         }
+
+        hundredArrowsSetup() {
+            this.updateText()
+            this.restartBtn.addEventListener('click', function() {self.clear()});
+
+            var hundredCoords = this.gridCoords(0, 0, 94, 128,4,3);
+            this.addBlankBlocks(hundredCoords, 100);
+
+            this.blankHundreds.forEach(block => {
+                (block.el).addEventListener('click', function() {
+                    //self.fillBlock(block.num, 100);
+                    self.fillBlock(144 + (block.num % 3) * 94, 120 + ((block.num  - block.num % 3) / 3) * 128 , 100);
+                })
+            })
+
+            var tenCoords = this.colCoords(0, 0, 51.5, 10);
+            this.addBlankBlocks(tenCoords, 10);
+
+            this.blankTens.forEach(block => {
+                (block.el).addEventListener('click', function() {
+                    self.fillBlock(492, 179 + block.num * 51.5 , 10);
+                })
+            })
+
+            var oneCoords = this.gridCoords(118, 0, 75, 100,5,2);
+            this.addBlankBlocks(oneCoords, 1);
+
+            this.blankOnes.forEach(block => {
+                (block.el).addEventListener('click', function() {
+                    self.fillBlock(679 + (block.num % 2) * 75,222 + ((block.num  - block.num % 2) / 2) * 100 , 1);
+                })
+            })
+        }   
 
     }
     return new blocksClass(_els, _setup);
