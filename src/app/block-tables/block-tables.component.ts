@@ -85,6 +85,7 @@ export class DecimalTableComponent implements AfterViewInit {
 
 }
 
+/*
 @Component({
   selector: 'app-block-tables',
   templateUrl: './arrows-100s-chart.component.html' , 
@@ -105,3 +106,4 @@ export class HundredsArrowsComponent implements AfterViewInit {
   }
 
 }
+*/
