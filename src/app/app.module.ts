@@ -13,6 +13,7 @@ import { DecomposeAsteroidsComponent } from './decompose-asteroids/decompose-ast
 import { DecomposeToPlanetComponent } from './decompose-to-planet/decompose-to-planet.component';
 import { BlockTablesComponent } from './block-tables/block-tables.component';
 import { TradeBlocksComponent } from './trade-blocks/trade-blocks.component';
+import { TenthSquaresComponent } from './tenth-squares/tenth-squares.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { TradeBlocksComponent } from './trade-blocks/trade-blocks.component';
     DecomposeToPlanetComponent,
     BlockTablesComponent,
     TradeBlocksComponent,
+    TenthSquaresComponent,
   ],
   imports: [
     BrowserModule,

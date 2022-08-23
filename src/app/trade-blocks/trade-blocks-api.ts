@@ -187,11 +187,16 @@ export function blocksAPI(_els, _setup) {
         }
 
         removeBlockFromArr(arr, num) {
-            arr.forEach(block => {
-                if (block.num == num) {
-                    arr.remove(block);
+            for(var i = 0; i < arr.length; i++) {
+                try {
+                    if (arr[i].num == num){
+                        arr[i] = blank;
+                    }
                 }
-            })
+                catch {
+                    arr[i].num = blank;
+                }
+            }
         }
 
         fillBlock(number, xVal, yVal, val) {
@@ -239,9 +244,20 @@ export function blocksAPI(_els, _setup) {
                 this.totalNum = Math.round(this.totalNum * 100) / 100; //ROUND NUMBER PROPERLY
                 self.updateText()
 
-                if (val == 1) self.numOnes -= 1;
-                else if (val == 10) self.numTens -= 1;
-                else if (val == 100) self.numHundreds -= 1;
+                if (val == 1) {
+                    self.numOnes -= 1;
+                    self.removeBlockFromArr(self.filledOnes, number);
+
+                }
+                else if (val == 10) {
+                    self.numTens -= 1;
+                    self.removeBlockFromArr(self.filledTens, number);
+
+                }
+                else if (val == 100) {
+                    self.numHundreds -= 1;
+                    self.removeBlockFromArr(self.filledHundreds, number);
+                }
                 
                 self.checkTrade() //NEED TO TAKE BLOCK OUT OF LISTS /////////////////////////////////////
             
