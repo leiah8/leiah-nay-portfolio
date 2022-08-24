@@ -35,7 +35,6 @@ export function blocksAPI(_els, _setup) {
 
         txt : HTMLElement;
 
-        totalOnes : number;
         totalTenths : number;
 
         filledTenths : tenth[];
@@ -64,7 +63,6 @@ export function blocksAPI(_els, _setup) {
 
 
 
-            this.totalOnes = 0;
             this.totalTenths = 0;
 
             this.filledTenths = [];
@@ -91,7 +89,8 @@ export function blocksAPI(_els, _setup) {
         }
 
         updateText() {
-            this.txt.textContent = String(this.totalOnes) + "." + String(this.totalTenths);
+
+            this.txt.textContent = String((this.totalTenths - (this.totalTenths % 10)) / 10) + "." + String(this.totalTenths % 10);
 
             //CENTRE TEXT
             gsap.set(this.txt, {x : 40 -(self.txt.getClientRects()[0].width / 2)});
@@ -124,7 +123,6 @@ export function blocksAPI(_els, _setup) {
 
             self.outlinesIndex = 0;
 
-            self.totalOnes = 0;
             self.totalTenths = 0;
 
             self.updateText();
@@ -147,10 +145,7 @@ export function blocksAPI(_els, _setup) {
                         }
                         
 
-                        if (self.totalTenths >= 10) {
-                            self.totalOnes++;
-                            self.totalTenths -= 10;
-                        }
+                        
 
                         self.updateText();
                     })
