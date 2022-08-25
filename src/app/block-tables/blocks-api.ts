@@ -124,8 +124,12 @@ export function blocksAPI(_els, _setup) {
 
         /** Updates the displayed text to match the totalNum */
         updateText() {
-            this.totalNum = Math.round(this.totalNum * 100) / 100;  // TO DO : ROUNDS PROPERLY
-            this.txt.textContent = String(this.totalNum);
+            // TO DO : ROUNDS PROPERLY
+            
+            if (this.setup.version == "decimalsChart")
+                this.txt.textContent = this.totalNum.toFixed(2);
+            else
+                this.txt.textContent = String(this.totalNum);
 
             //centre text
             gsap.set(this.txt, {x : self.textXVal -(self.txt.getClientRects()[0].width / 2)});

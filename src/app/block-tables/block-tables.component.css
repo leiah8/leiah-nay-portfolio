@@ -1,3 +1,7 @@
+#innerTxt {
+    user-select:none
+}
+
 svg {
     height : auto; 
     width : auto ;
