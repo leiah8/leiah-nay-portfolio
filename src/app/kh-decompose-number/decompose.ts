@@ -217,9 +217,7 @@ export function decomposeNumber(_els, _setup) {
                     this.translateObject(decrementText, xVal, yVal)
                     this.T.to(decrementText, { duration: 0.5, scale: 0.01 })//scale
 
-                    //MAKE CHANGE HERE
-
-                                       
+                    //LEIAH'S CHANGES (Scale and position depend on the asset because of each one's transformation)        
                     if (decrementVal == 1) {
                         this.T.set(decrementAsset, { x: xVal - 42, y: yVal - 38, opacity: 1 })
                     }
@@ -229,7 +227,6 @@ export function decomposeNumber(_els, _setup) {
                     else {
                         this.T.set(decrementAsset, { x: xVal, y: yVal, opacity: 1 })
                     }
-                    
 
                     //this.T.set(decrementAsset, { x: xVal, y: yVal, opacity: 1 })
                     

@@ -1,6 +1,9 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { blocksAPI, blocksSetup} from "./blocks-api";
 
+
+//Given Componenet Template
+
 @Component({
   selector: 'app-block-tables',
   templateUrl: './block-tables.component.html',
@@ -84,26 +87,3 @@ export class DecimalTableComponent implements AfterViewInit {
   }
 
 }
-
-/*
-@Component({
-  selector: 'app-block-tables',
-  templateUrl: './arrows-100s-chart.component.html' , 
-  styleUrls: ['./block-tables.component.css']
-})
-export class HundredsArrowsComponent implements AfterViewInit {
-
-  constructor() { }
-
-  ngAfterViewInit(): void {
-
-    const setup = {
-      version : "arrowsHundredsChart"
-    } as blocksSetup
-
-    const els = null; //this.renderEl.nativeElement; 
-    const interactive = blocksAPI(els, setup);
-  }
-
-}
-*/

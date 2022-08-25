@@ -10,7 +10,6 @@ interface pos {
     y : number
 }
 
-
 export interface blocksSetup {
     version : string
 }
@@ -22,11 +21,11 @@ export function blocksAPI(_els, _setup) {
         els : SVGSVGElement | null;
         setup : blocksSetup;
 
+        //Reference to HTML Elements
         thousandRef : HTMLElement;
         hundredRef : HTMLElement; 
         tensRef : HTMLElement; 
         onesRef : HTMLElement; 
-
         tenthsRef : HTMLElement;
         hundredthsRef : HTMLElement;
 
@@ -34,7 +33,6 @@ export function blocksAPI(_els, _setup) {
         hundredBlank : HTMLElement; 
         tenBlank : HTMLElement; 
         oneBlank : HTMLElement; 
-
         tenthsBlank : HTMLElement;
         hundredthsBlank : HTMLElement;
 
@@ -42,9 +40,12 @@ export function blocksAPI(_els, _setup) {
         txt : HTMLElement;
         restartBtn : HTMLElement;
 
+        //Text 'x' value depends on the layout
         textXVal : number;
+
         totalNum : number;
 
+        //Store blank blocks
         blankThousands : block[];
         blankHundreds : block[];
         blankTens : block[];
@@ -66,7 +67,6 @@ export function blocksAPI(_els, _setup) {
             this.hundredRef = document.getElementById("hundred") as HTMLElement
             this.tensRef = document.getElementById("ten") as HTMLElement
             this.onesRef = document.getElementById("one") as HTMLElement
-
             this.hundredthsRef = document.getElementById("hundredth") as HTMLElement
             this.tenthsRef = document.getElementById("tenth") as HTMLElement
 
@@ -74,7 +74,6 @@ export function blocksAPI(_els, _setup) {
             this.hundredBlank = document.getElementById("hundred1") as HTMLElement
             this.tenBlank = document.getElementById("ten1") as HTMLElement
             this.oneBlank = document.getElementById("one1") as HTMLElement
-
             this.hundredthsBlank = document.getElementById("hundredth1") as HTMLElement
             this.tenthsBlank = document.getElementById("tenth1") as HTMLElement
 
@@ -87,7 +86,6 @@ export function blocksAPI(_els, _setup) {
             this.blankHundreds = []
             this.blankTens = []
             this.blankOnes = []
-
             this.blankHundredths = []
             this.blankTenths = []
 
@@ -101,34 +99,39 @@ export function blocksAPI(_els, _setup) {
             this.main()
         }
 
+        /** Outputs the coordinates of a 'rows' by 'cols' grid at (xVal, yVal) 
+         * with a horizontal difference of 'delatX' and a vertiacal difference of 'deltaY'
+         * between each element */
         gridCoords(xVal, yVal, deltaX, deltaY, rows, cols) {
             var coords = [];
-
             for (var i = 0; i < rows; i++) {
                 for (var j = 0; j < cols; j++) {
                     coords.push({x : xVal + j * deltaX, y : yVal + i*deltaY})
                 }
             }
-
             return coords;
         }
 
+        /** Outputs the coordinates of 'rows' elements in one column at (xVal, yVal) 
+         * with a vertical difference of 'deltaY' between each element */
         colCoords(xVal, yVal, deltaY, rows) {
             var coords = []; 
             for (var i = 0; i < rows; i++) {
                 coords.push({x : xVal, y : yVal + i*deltaY})
             }
-
             return coords;
         }
 
+        /** Updates the displayed text to match the totalNum */
         updateText() {
+            this.totalNum = Math.round(this.totalNum * 100) / 100;  // TO DO : ROUNDS PROPERLY
             this.txt.textContent = String(this.totalNum);
 
-            //CENTRE TEXT
+            //centre text
             gsap.set(this.txt, {x : self.textXVal -(self.txt.getClientRects()[0].width / 2)});
         }
 
+        /** Remove all filled blocks and reset the chart */
         clear() {
             this.filledBlocks.forEach(block => {
                 try {
@@ -146,7 +149,10 @@ export function blocksAPI(_els, _setup) {
             this.updateText()
         }
 
+        /** Fill a block, whose image depends on 'val' at (xVal, yVal) */
         fillBlock(xVal, yVal, val) {
+
+            //determine image
             var block;
             if (val == 100) {
                 block = this.hundredRef.cloneNode(true);
@@ -167,32 +173,35 @@ export function blocksAPI(_els, _setup) {
                 block = this.thousandRef.cloneNode(true);
             }
 
+            //add block
             gsap.set(block, {x : xVal, y : yVal });
-
             this.filledBlocks.push(block);
-
             self.layer.appendChild(block);
-            this.totalNum += val;
-            this.totalNum = Math.round(this.totalNum * 100) / 100;  //ROUND NUMBER PROPERLY
-            console.log(self.totalNum);
-            this.updateText()
 
+            //Update the totalNum
+            this.totalNum += val;
+            this.updateText();
+            console.log(self.totalNum);
+
+            //Remove block and update text when it is clicked
             block.addEventListener('click', function () {
-                //gsap.set(block, {visibility : "hidden"});
                 self.layer.removeChild(block);
+
                 self.totalNum -= val;
-                this.totalNum = Math.round(this.totalNum * 100) / 100; //ROUND NUMBER PROPERLY
-                console.log(self.totalNum);
                 self.updateText()
+                console.log(self.totalNum);
             })
         }
 
+        /** Create a blank block, whose image depends on 'val' 
+         * at each of the coordinates in 'coords */
         addBlankBlocks(coords, val) {
+
+            //determine image
             var index = 0;
             var ref;
             var arr;
 
-            
             if (val == 100) {
                 ref = self.hundredBlank;
                 arr = self.blankHundreds;
@@ -218,6 +227,7 @@ export function blocksAPI(_els, _setup) {
                 arr = self.blankThousands;
             }
 
+            // draw a blank image at each coordinate 
             coords.forEach(c => {
                 var blankBlock = ref.cloneNode(true);
                 gsap.set(blankBlock, {x : c.x, y : c.y});
@@ -229,8 +239,10 @@ export function blocksAPI(_els, _setup) {
 
         }
 
+        /** MAIN Setup  */
         main() {
 
+            //Determine version
             if (this.setup.version == "hundredsChart") {
                 self.textXVal = 14;
                 self.hundredsChartSetup()
@@ -243,30 +255,24 @@ export function blocksAPI(_els, _setup) {
                 self.textXVal = 44;
                 self.decimalChartSetup()
             }
-            else if (this.setup.version == "arrowsHundredsChart") {
-                self.textXVal = 35;
-                self.hundredArrowsSetup()
-            }
-
         }
 
+        /** Setup for the hundreds chart version */
         hundredsChartSetup() {
-
             this.updateText()
             this.restartBtn.addEventListener('click', function() {self.clear()});
 
+            // HUNDREDS //
             var hundredCoords = this.gridCoords(0, 0, 98, 145,3,3);
             this.addBlankBlocks(hundredCoords, 100);
 
             this.blankHundreds.forEach(block => {
                 (block.el).addEventListener('click', function() {
-                    //self.fillBlock(block.num, 100);
                     self.fillBlock(144 + (block.num % 3) * 98, 120 + ((block.num  - block.num % 3) / 3) * 145 , 100);
                 })
             })
 
-
-
+            // TENS //
             var tenCoords = this.colCoords(0, 383.5, 46.5,9);
             this.addBlankBlocks(tenCoords, 10);
 
@@ -276,8 +282,7 @@ export function blocksAPI(_els, _setup) {
                 })
             })
 
-
-
+            // ONES //
             var oneCoords = this.gridCoords(0, 0, 45, 140,3,3);
             this.addBlankBlocks(oneCoords, 1);
 
@@ -288,12 +293,13 @@ export function blocksAPI(_els, _setup) {
             })
         }
 
+        /** Setup for the hundreds chart version */
         thousandsChartSetup() {
 
             this.updateText()
             this.restartBtn.addEventListener('click', function() {self.clear()});
 
-
+            // THOUSANDS //
             var thousandCoords = this.gridCoords(-4.5, 0, 98, 145,3,3);
             this.addBlankBlocks(thousandCoords, 1000);
             
@@ -303,17 +309,17 @@ export function blocksAPI(_els, _setup) {
                 })
             })
             
-
+            // HUNDREDS //
             var hundredCoords = this.gridCoords(0, 0, 102, 145,3,3);
             this.addBlankBlocks(hundredCoords, 100);
 
             this.blankHundreds.forEach(block => {
                 (block.el).addEventListener('click', function() {
-                    //self.fillBlock(block.num, 100);
                     self.fillBlock(445 + (block.num % 3) * 102, 120 + ((block.num  - block.num % 3) / 3) * 145 , 100);
                 })
             })
 
+            // TENS //
             var tenCoords = this.colCoords(180, 0, 46.5,9);
             this.addBlankBlocks(tenCoords, 10);
 
@@ -323,8 +329,7 @@ export function blocksAPI(_els, _setup) {
                 })
             })
 
-
-
+            // ONES //
             var oneCoords = this.gridCoords(307, 1, 45, 140,3,3);
             this.addBlankBlocks(oneCoords, 1);
 
@@ -334,11 +339,12 @@ export function blocksAPI(_els, _setup) {
                 })
             })
         }
-
+        /** Setup for the decimal chart version */
         decimalChartSetup() {
             this.updateText()
             this.restartBtn.addEventListener('click', function() {self.clear()});
 
+            // ONES //
             var oneCoords = this.gridCoords(0, 0, 98, 145,3,3);
             this.addBlankBlocks(oneCoords, 1);
 
@@ -348,6 +354,7 @@ export function blocksAPI(_els, _setup) {
                 })
             })
 
+            // TENTHS //
             var tenthCoords = this.colCoords(0, 0, 46.5,9);
             this.addBlankBlocks(tenthCoords, 0.1);
 
@@ -357,6 +364,7 @@ export function blocksAPI(_els, _setup) {
                 })
             })
 
+            // HUNDREDTHS //
             var hundredthCoords = this.gridCoords(0, 0, 45, 140,3,3);
             this.addBlankBlocks(hundredthCoords, 0.01);
 
@@ -367,39 +375,6 @@ export function blocksAPI(_els, _setup) {
             })
 
         }
-
-        hundredArrowsSetup() {
-            this.updateText()
-            this.restartBtn.addEventListener('click', function() {self.clear()});
-
-            var hundredCoords = this.gridCoords(0, 0, 94, 128,4,3);
-            this.addBlankBlocks(hundredCoords, 100);
-
-            this.blankHundreds.forEach(block => {
-                (block.el).addEventListener('click', function() {
-                    //self.fillBlock(block.num, 100);
-                    self.fillBlock(144 + (block.num % 3) * 94, 120 + ((block.num  - block.num % 3) / 3) * 128 , 100);
-                })
-            })
-
-            var tenCoords = this.colCoords(0, 0, 51.5, 10);
-            this.addBlankBlocks(tenCoords, 10);
-
-            this.blankTens.forEach(block => {
-                (block.el).addEventListener('click', function() {
-                    self.fillBlock(492, 179 + block.num * 51.5 , 10);
-                })
-            })
-
-            var oneCoords = this.gridCoords(118, 0, 75, 100,5,2);
-            this.addBlankBlocks(oneCoords, 1);
-
-            this.blankOnes.forEach(block => {
-                (block.el).addEventListener('click', function() {
-                    self.fillBlock(679 + (block.num % 2) * 75,222 + ((block.num  - block.num % 2) / 2) * 100 , 1);
-                })
-            })
-        }   
 
     }
     return new blocksClass(_els, _setup);

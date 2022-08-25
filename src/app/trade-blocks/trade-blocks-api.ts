@@ -1,4 +1,5 @@
 import { gsap } from "gsap/all";
+import { TimeLimiter } from "pixi.js";
 
 interface block {
     el : Node | null
@@ -178,7 +179,14 @@ export function blocksAPI(_els, _setup) {
             this.numHundreds = 0;
 
             this.totalNum = 0;
-            this.updateText()
+            this.updateText();
+
+            gsap.set(self.tensToHundredArrow, {visibility : "hidden"});
+            gsap.set(self.hundredToTensArrow, {visibility : "hidden"});
+            gsap.set(self.onesToTenArrow, {visibility : "hidden"});
+            gsap.set(self.tenToOnesArrow, {visibility : "hidden"});
+
+
         }
 
         addBlockToArr(arr, block) {
@@ -412,7 +420,7 @@ export function blocksAPI(_els, _setup) {
             self.hundredToTensArrow.addEventListener('click', function() {
                 
                 for (var i = 0; i < 10; i++) {
-                    self.fillBlock(i, 492, 179 + i * 51.5 , 10);
+                    self.fillBlock(i, 491, 178 + i * 51.5 , 10);
                 }
 
                 var index = self.findLastFilled(self.filledHundreds);
@@ -440,19 +448,41 @@ export function blocksAPI(_els, _setup) {
             gsap.set(self.onesToTenArrow, {visibility : "hidden"});
 
             self.onesToTenArrow.addEventListener('click', function() {
+
+                self.tl = gsap.timeline({paused : true});
                 var index : number;
                 index = self.findFirstBlank(self.filledTens);
-               
-                self.fillBlock(index, 492, 179 + index * 51.5 , 10);
+                
 
+                //TRADING ANIMATION HERE
+                self.filledOnes.forEach(block => {
+                    self.tl.to(block.el, {x : 100, y : 0, duration : 1}); 
+                    //CHANGE POS TO MATCH THE TEN IT IS SWICHING TO
+                });
+
+                self.filledOnes.forEach(block => {
+                    self.tl.to(block.el, {opacity : 0, duration : 2});
+                });
+
+                //THEN SWITCH OUT ALL THE ONES FOR THE TENS IMAGE
+
+                self.tl.play();
+
+                /*
                 self.filledOnes.forEach(block => {
                     try {
                         self.layer.removeChild(block.el);
                     }
                     catch {
-                        gsap.set(block, {visibility : "hidden"});
+                        //gsap.set(block.el, {visibility : "hidden"});
+                        self.tl.to(block.el, {visibility : "hidden", duration : 2});
+                    
                     }
                 });
+                */
+
+                self.fillBlock(index, 491, 178 + index * 51.5 , 10);
+                
 
                 self.filledOnes = [blank,blank,blank,blank,blank,blank,blank,blank,blank,blank]
                 self.numOnes = 0;
@@ -470,7 +500,7 @@ export function blocksAPI(_els, _setup) {
             self.tenToOnesArrow.addEventListener('click', function() {
                
                 for (var i = 0; i < 10; i++) {
-                    self.fillBlock(i, 679 + (i % 2) * 75,222 + ((i  - i % 2) / 2) * 100 , 1);
+                    self.fillBlock(i, 679.7 + (i % 2) * 75,222 + ((i  - i % 2) / 2) * 100 , 1);
                 }
 
                 var index = self.findLastFilled(self.filledTens);
@@ -516,7 +546,7 @@ export function blocksAPI(_els, _setup) {
 
             this.blankTens.forEach(block => {
                 (block.el).addEventListener('click', function() {
-                    self.fillBlock(block.num, 492, 179 + block.num * 51.5 , 10);
+                    self.fillBlock(block.num, 491, 178 + block.num * 51.5 , 10);
                 })
             })
 
@@ -525,11 +555,11 @@ export function blocksAPI(_els, _setup) {
 
             this.blankOnes.forEach(block => {
                 (block.el).addEventListener('click', function() {
-                    self.fillBlock(block.num, 679 + (block.num % 2) * 75,222 + ((block.num  - block.num % 2) / 2) * 100 , 1);
+                    self.fillBlock(block.num, 679.7 + (block.num % 2) * 75,222 + ((block.num  - block.num % 2) / 2) * 100 , 1);
                 })
             })
         }   
-
+        
     }
     return new blocksClass(_els, _setup);
 }

@@ -220,7 +220,7 @@ export function decomposeNumber(_els, _setup) {
                     this.translateObject(decrementText, xVal, yVal)
                     this.T.to(decrementText, { duration: 0.5, scale: 0.01 })//scale
 
-                    //MAKE CHANGE HERE               
+                    //LEIAH's CHANGES (Scale and position depend on the asset because of each one's transformation)
                     if (decrementVal == 1) {
                         this.T.set(decrementAsset, { x: xVal, y: yVal, opacity: 1 })
                         this.T.to(decrementAsset, { scale: this.assetScale * 1.3, duration: 0.5, onComplete: this.redrawElements}, "<")
@@ -233,10 +233,10 @@ export function decomposeNumber(_els, _setup) {
                         this.T.set(decrementAsset, { x: xVal - 120, y: yVal - 65, opacity: 1})
                         this.T.to(decrementAsset, { scale: this.assetScale, duration: 0.5, onComplete: this.redrawElements}, "<")
                     }
-                    
 
                     //this.T.set(decrementAsset, { x: xVal, y: yVal, opacity: 1 })
                     //this.T.to(decrementAsset, { scale: this.assetScale, duration: 0.5, onComplete: this.redrawElements}, "<")
+                    
                     decrementNumID++;
                     
                     xVal += (parseInt(decrementAsset.getAttribute("width"))) * this.assetScale + 10

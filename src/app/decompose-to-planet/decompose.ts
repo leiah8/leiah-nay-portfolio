@@ -236,7 +236,7 @@ export function decomposeNumber(_els, _setup) {
                     this.translateObject(decrementText, xVal, yVal)
                     this.T.to(decrementText, { duration: 0.5, scale: 0.01 })//scale
 
-                    //MAKE CHANGE HERE                       
+                    //LEIAH'S CHANGES: Scale and position depend on the asset because of each one's transformation                       
                     if (decrementVal == 1) {
                         this.T.set(decrementAsset, { x: xVal, y: yVal, opacity: 1, scale : 0})
                     }
@@ -250,9 +250,7 @@ export function decomposeNumber(_els, _setup) {
                         this.T.set(decrementAsset, { x: xVal + 5, y: yVal - 5, opacity: 1, scale : 0})
                     }
                     
-
                     //this.T.set(decrementAsset, { x: xVal, y: yVal, opacity: 1 })
-                    
                     
                     this.T.to(decrementAsset, { scale: this.assetScale, duration: 0.5, onComplete: this.redrawElements}, "<")
                     decrementNumID++;
@@ -273,11 +271,14 @@ export function decomposeNumber(_els, _setup) {
 
                 }
 
+                //LEIAH'S CHANGES: Meteor assets go through worm hole to become planets/suns/moons
+
                 let wormHoleX = 199;
                 let wormHoleY = 79;
 
                 let spaceAssets = [];
 
+                //reset values 
                 xOffset = 210;
                 yOffset = 20;
 
@@ -290,9 +291,8 @@ export function decomposeNumber(_els, _setup) {
 
                 this.T.to(this.refToOne, { duration : 1});
 
-                //ANIMATE PLANETS
+                // ANIMATE PLANETS //
                 for(var i = 0; i < decrementValues.length; i++) {
-
                     decrementVal = decrementValues[i];
 
                     if (assetRowCount[decrementVal] == 3) {//if we have filled row with 3 objects of unique type then proceed to next row
@@ -301,14 +301,15 @@ export function decomposeNumber(_els, _setup) {
                         xVal = xOffset
                     }
                     
-                    //determine planet
+                    //determine asset, create asset, move meteor asset, animate planet/sun/moon
                     var currentAsset;
                     if (decrementVal == 1) {
                         currentAsset = this.refToMoon.cloneNode(true);
                         gsap.set(currentAsset, { attr: { id: 'spaceAsset' + (i) }, opacity : 1, x : wormHoleX, y : wormHoleY, scale : 0});
                         this.drawnElements.appendChild(currentAsset);
+                        
                         this.T.to(assets[i], {x : 150, y : wormHoleY, scale : 0, skewX : 30, duration : 1});
-                    
+                        
                         this.T.to(currentAsset, {duration : 0.5});
                         this.T.to(currentAsset, {scale : 1, x : xVal, y : yVal, duration : 0.75});
                     
@@ -317,6 +318,7 @@ export function decomposeNumber(_els, _setup) {
                         currentAsset = this.refToPlanet.cloneNode(true);
                         gsap.set(currentAsset, { attr: { id: 'spaceAsset' + (i) }, opacity : 1, x : wormHoleX, y : wormHoleY, scale : 0});
                         this.drawnElements.appendChild(currentAsset);
+                        
                         this.T.to(assets[i], {x : 150, y : wormHoleY, scale : 0, skewX : 30, duration : 1});
                     
                         this.T.to(currentAsset, {duration : 0.5});
@@ -327,6 +329,7 @@ export function decomposeNumber(_els, _setup) {
                         currentAsset = this.refToSun.cloneNode(true);
                         gsap.set(currentAsset, { attr: { id: 'spaceAsset' + (i) }, opacity : 1, x : wormHoleX - 109, y : wormHoleY - 220, scale : 0});
                         this.drawnElements.appendChild(currentAsset);
+                        
                         this.T.to(assets[i], {x : 180, y : wormHoleY, scale : 0, skewX : 30, duration : 1});
                     
                         this.T.to(currentAsset, {duration : 0.5});
@@ -337,6 +340,7 @@ export function decomposeNumber(_els, _setup) {
                         currentAsset = this.refToGalaxy.cloneNode(true);
                         gsap.set(currentAsset, { attr: { id: 'spaceAsset' + (i) }, opacity : 1, x : wormHoleX + 80, y : wormHoleY - 10, scale : 0});
                         this.drawnElements.appendChild(currentAsset);
+                        
                         this.T.to(assets[i], {x : 155, y : wormHoleY - 5, scale : 0, skewX : 30, duration : 1});
                     
                         this.T.to(currentAsset, {duration : 0.5});
@@ -346,12 +350,13 @@ export function decomposeNumber(_els, _setup) {
 
                     spaceAssets.push(currentAsset);
 
+                    //update values
                     xVal += (deltaValues[decrementVal])
                     maxXVal = Math.max(maxXVal,xVal)//keep track of the furthest xValue
                     assetRowCount[decrementVal]++;
 
+                    //if we are switching to a new asset
                     if (i+1 < decrementValues.length && decrementVal != decrementValues[i+1]){
-                        //if we are switching to a new asset
                         yVal = yOffset //reset y value
                         xOffset = maxXVal + 5 //set x to furthest x
                         xVal = xOffset
@@ -360,9 +365,9 @@ export function decomposeNumber(_els, _setup) {
                     
                 }
 
-
                 this.animationFinished = true;
 
+                //make all outputted assets draggable
                 gsap.registerPlugin(Draggable);
 
                 spaceAssets.forEach(el => {

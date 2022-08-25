@@ -25,6 +25,7 @@ const routes: Routes = [
   {path : 'decimalBlocks',  component: DecimalTableComponent },
   {path : 'tradeHundredBlocks',  component: TradeBlocksComponent },
   {path : 'tenthSquares',  component: TenthSquaresComponent },
+  {path : 'moonGame1',  component: Moongame1Component },
 
   //{ path: '', component:  }, //FOR MAIN PAGE
 ]
