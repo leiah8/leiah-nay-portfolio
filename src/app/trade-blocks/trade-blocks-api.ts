@@ -455,6 +455,7 @@ export function blocksAPI(_els, _setup) {
                 
 
                 //TRADING ANIMATION HERE
+                /*
                 self.filledOnes.forEach(block => {
                     self.tl.to(block.el, {x : 100, y : 0, duration : 1}); 
                     //CHANGE POS TO MATCH THE TEN IT IS SWICHING TO
@@ -463,12 +464,14 @@ export function blocksAPI(_els, _setup) {
                 self.filledOnes.forEach(block => {
                     self.tl.to(block.el, {opacity : 0, duration : 2});
                 });
+                
 
                 //THEN SWITCH OUT ALL THE ONES FOR THE TENS IMAGE
 
                 self.tl.play();
+                */
 
-                /*
+                
                 self.filledOnes.forEach(block => {
                     try {
                         self.layer.removeChild(block.el);
@@ -479,7 +482,7 @@ export function blocksAPI(_els, _setup) {
                     
                     }
                 });
-                */
+                
 
                 self.fillBlock(index, 491, 178 + index * 51.5 , 10);
                 
