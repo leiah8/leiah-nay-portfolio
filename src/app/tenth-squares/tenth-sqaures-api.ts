@@ -1,16 +1,15 @@
 import { gsap } from "gsap/all";
 
-
 export interface blocksSetup {
 }
 
+/** Keeps track of all tenths, filled and not */
 interface tenth {
     el : Node 
     num : number
     on : boolean
     activated : boolean
 }
-
 
 interface pos {
     x : number
@@ -23,8 +22,9 @@ export function blocksAPI(_els, _setup) {
     class blocksClass {
         els : SVGSVGElement | null;
         setup : blocksSetup;
-
         svgns : string
+
+        // Refs to HTML Elements
 
         refToOutline : HTMLElement;
         refToFillRect : HTMLElement;
@@ -35,12 +35,12 @@ export function blocksAPI(_els, _setup) {
 
         txt : HTMLElement;
 
+        // Tracks filled tenths
         totalTenths : number;
-
         filledTenths : tenth[];
 
+        //Tracks all outlines 
         additionalOutlines : Node[] ;
-
         outlineCoords : pos[];
         outlinesIndex : number;
 
@@ -51,7 +51,6 @@ export function blocksAPI(_els, _setup) {
 
             this.svgns = "http://www.w3.org/2000/svg";
 
-
             this.refToOutline = document.getElementById("outline") as HTMLElement;
             this.refToFillRect = document.getElementById("fillRect") as HTMLElement;
             this.restart = document.getElementById("restart") as HTMLElement;
@@ -61,13 +60,10 @@ export function blocksAPI(_els, _setup) {
 
             this.txt = document.getElementById("innerTxt") as HTMLElement
 
-
-
             this.totalTenths = 0;
-
             this.filledTenths = [];
+            
             this.additionalOutlines = [];
-
             this.outlineCoords = this.gridCoords(323, 356.5, 198, 210, 2, 3);
             this.outlinesIndex = 0;
 
@@ -76,34 +72,33 @@ export function blocksAPI(_els, _setup) {
 
         }
 
+        /** Outputs the coordinates of a 'rows' by 'cols' grid at (xVal, yVal) 
+         * with a horizontal difference of 'delatX' and a vertiacal difference of 'deltaY'
+         * between each element */
         gridCoords(xVal, yVal, deltaX, deltaY, rows, cols) {
             var coords = [];
-
             for (var i = 0; i < rows; i++) {
                 for (var j = 0; j < cols; j++) {
                     coords.push({x : xVal + j * deltaX, y : yVal + i*deltaY})
                 }
             }
-
             return coords;
         }
 
+        /** Updates the displayed text to match the totalNum */
         updateText() {
-
             this.txt.textContent = String((this.totalTenths - (this.totalTenths % 10)) / 10) + "." + String(this.totalTenths % 10);
-
-            //CENTRE TEXT
             gsap.set(this.txt, {x : 40 -(self.txt.getClientRects()[0].width / 2)});
 
             
         }
-
+        
+        /** Removes all outlines and filled tenths from the screen */
         clear() {
             self.filledTenths.forEach(tenth => {
                 try {
                     self.backLayer.removeChild(tenth.el);
-                }
-                catch {
+                } catch {
                     gsap.set(tenth.el, {visibility : "hidden"});
                 }
             });
@@ -113,21 +108,18 @@ export function blocksAPI(_els, _setup) {
             self.additionalOutlines.forEach(el => {
                 try {
                     self.frontLayer.removeChild(el);
-                }
-                catch {
+                } catch {
                     gsap.set(el, {visibility : "hidden"});
                 }
             })
 
             self.additionalOutlines = [];
-
             self.outlinesIndex = 0;
-
             self.totalTenths = 0;
-
             self.updateText();
         }
 
+        /** Adds the event listener to any tenths that do not currently have it */
         activateTenths(){
             this.filledTenths.forEach(tenth => {
                 if (tenth.activated == false) {
@@ -143,10 +135,6 @@ export function blocksAPI(_els, _setup) {
                             tenth.on = true;
                             self.totalTenths++;
                         }
-                        
-
-                        
-
                         self.updateText();
                     })
 
@@ -156,25 +144,27 @@ export function blocksAPI(_els, _setup) {
             })
         }
 
+        /** MAIN SET UP */
         main() {
-
             this.updateText();
 
+            // BUTTONS //
             this.restart.addEventListener('click', function() {
                 self.clear();
             })
 
             this.addBtn.addEventListener('click', function() {
                 if (self.outlinesIndex < 6) {
-                    
+
+                    //add the outline
                     var tempOutline = self.refToOutline.cloneNode(true);
                     gsap.set(tempOutline, {x : self.outlineCoords[self.outlinesIndex].x, 
                         y : self.outlineCoords[self.outlinesIndex].y});
                     self.frontLayer.appendChild(tempOutline);
                     self.additionalOutlines.push(tempOutline)
                     
+                    //add tenths behind the outline
                     var xVal = -281
-
                     for (var i = 0; i < 10; i++) {
                         var temp = self.refToFillRect.cloneNode(true);
                         gsap.set(temp, { x : self.outlineCoords[self.outlinesIndex].x + xVal, 
@@ -187,33 +177,10 @@ export function blocksAPI(_els, _setup) {
                     }
 
                     self.activateTenths();
-
                     self.outlinesIndex++;
                 }
             });
-
-
-            /*
             
-            this.outlineCoords.forEach(c => {
-                var tempOutline = self.refToOutline.cloneNode(true);
-                gsap.set(tempOutline, {x : c.x, y : c.y});
-                this.frontLayer.appendChild(tempOutline);
-
-                var xVal = 64
-                for (var i = 0; i < 10; i++) {
-                    var temp = self.refToFillRect.cloneNode(true);
-                    gsap.set(temp, {x : c.x + xVal, y : c.y - 208.5, fill : "#ffffff"});
-                    this.backLayer.appendChild(temp);
-
-                    xVal += 15.4
-                }
-
-            }) 
-            */
-            
-            
-
         }
     }
 

@@ -233,7 +233,7 @@ export function decomposeNumber(_els, _setup) {
                         this.showObject(nextNum, 0)
                     }
 
-                    this.translateObject(decrementText, xVal, yVal)
+                    this.translateObject(decrementText, xVal - ( 1.5 / decrementVal), yVal)
                     this.T.to(decrementText, { duration: 0.5, scale: 0.01 })//scale
 
                     //LEIAH'S CHANGES: Scale and position depend on the asset because of each one's transformation                       
@@ -252,10 +252,10 @@ export function decomposeNumber(_els, _setup) {
                     
                     //this.T.set(decrementAsset, { x: xVal, y: yVal, opacity: 1 })
                     
-                    this.T.to(decrementAsset, { scale: this.assetScale, duration: 0.5, onComplete: this.redrawElements}, "<")
+                    this.T.to(decrementAsset, { scale: this.assetScale + ( 1.5 / decrementVal), duration: 0.5, onComplete: this.redrawElements}, "<")
                     decrementNumID++;
                     
-                    xVal += (parseInt(decrementAsset.getAttribute("width"))) * this.assetScale + 3
+                    xVal += (parseInt(decrementAsset.getAttribute("width"))) * (this.assetScale + ( 1.5 / decrementVal)) + 3
                     maxXVal = Math.max(maxXVal,xVal)//keep track of the furthest xValue
                     assetRowCount[decrementVal]++;
 
@@ -309,6 +309,7 @@ export function decomposeNumber(_els, _setup) {
                         this.drawnElements.appendChild(currentAsset);
                         
                         this.T.to(assets[i], {x : 150, y : wormHoleY, scale : 0, skewX : 30, duration : 1});
+                        //REMOVE ELEMENT FROM DOCUMENT
                         
                         this.T.to(currentAsset, {duration : 0.5});
                         this.T.to(currentAsset, {scale : 1, x : xVal, y : yVal, duration : 0.75});

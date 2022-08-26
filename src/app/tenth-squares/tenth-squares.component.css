@@ -4,3 +4,7 @@ svg {
     max-height : 600px;
     min-height : 300px;
 }
+
+#innerTxt {
+    user-select:none
+}

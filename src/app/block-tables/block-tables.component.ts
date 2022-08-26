@@ -3,7 +3,6 @@ import { blocksAPI, blocksSetup} from "./blocks-api";
 
 
 //Given Componenet Template
-
 @Component({
   selector: 'app-block-tables',
   templateUrl: './block-tables.component.html',
@@ -25,7 +24,7 @@ export class BlockTablesComponent implements AfterViewInit {
 
 }
 
-
+// HUNDREDS CHART COMPONENT
 @Component({
   selector: 'app-block-tables',
   templateUrl:  './block-tables.component.html',
@@ -47,6 +46,8 @@ export class HundredsTableComponent implements AfterViewInit {
 
 }
 
+// THOUSANDS CHART COMPONENT
+
 @Component({
   selector: 'app-block-tables',
   templateUrl: './1000s-char.componenet.html',
@@ -66,6 +67,8 @@ export class ThousandsTableComponent implements AfterViewInit {
     const interactive = blocksAPI(els, setup);
   }
 }
+
+// DECIMAL CHART COMPONENT
 
 @Component({
   selector: 'app-block-tables',

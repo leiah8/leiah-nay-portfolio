@@ -124,7 +124,7 @@ export function blocksAPI(_els, _setup) {
 
         /** Updates the displayed text to match the totalNum */
         updateText() {
-            // TO DO : ROUNDS PROPERLY
+            // TO DO : ROUND PROPERLY
             
             if (this.setup.version == "decimalsChart")
                 this.txt.textContent = this.totalNum.toFixed(2);
@@ -343,6 +343,7 @@ export function blocksAPI(_els, _setup) {
                 })
             })
         }
+
         /** Setup for the decimal chart version */
         decimalChartSetup() {
             this.updateText()
