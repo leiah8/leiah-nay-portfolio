@@ -10,7 +10,7 @@ import { HundredsTableComponent, ThousandsTableComponent, DecimalTableComponent}
 import { TradeBlocksComponent } from './trade-blocks/trade-blocks.component'
 import { TenthSquaresComponent } from './tenth-squares/tenth-squares.component'
 import { Moongame1Component } from './moongame1/moongame1.component';
-
+import { MainComponent } from './main/main.component';
 
 
 const routes: Routes = [
@@ -26,8 +26,7 @@ const routes: Routes = [
   {path : 'tradeHundredBlocks',  component: TradeBlocksComponent },
   {path : 'tenthSquares',  component: TenthSquaresComponent },
   {path : 'moonGame1',  component: Moongame1Component },
-
-  //{ path: '', component:  }, //FOR MAIN PAGE
+  {path : '', component: MainComponent  }
 ]
 
 @NgModule({

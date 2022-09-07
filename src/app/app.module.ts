@@ -14,6 +14,7 @@ import { DecomposeToPlanetComponent } from './decompose-to-planet/decompose-to-p
 import { BlockTablesComponent } from './block-tables/block-tables.component';
 import { TradeBlocksComponent } from './trade-blocks/trade-blocks.component';
 import { TenthSquaresComponent } from './tenth-squares/tenth-squares.component';
+import { MainComponent } from './main/main.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { TenthSquaresComponent } from './tenth-squares/tenth-squares.component';
     BlockTablesComponent,
     TradeBlocksComponent,
     TenthSquaresComponent,
+    MainComponent,
   ],
   imports: [
     BrowserModule,
