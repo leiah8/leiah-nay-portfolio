@@ -159,7 +159,7 @@ export function blocksAPI(_els, _setup) {
                     //add the outline
                     var tempOutline = self.refToOutline.cloneNode(true);
                     gsap.set(tempOutline, {x : self.outlineCoords[self.outlinesIndex].x, 
-                        y : self.outlineCoords[self.outlinesIndex].y});
+                        y : self.outlineCoords[self.outlinesIndex].y, visibility:"visible"});
                     self.frontLayer.appendChild(tempOutline);
                     self.additionalOutlines.push(tempOutline)
                     
@@ -169,7 +169,7 @@ export function blocksAPI(_els, _setup) {
                         var temp = self.refToFillRect.cloneNode(true);
                         gsap.set(temp, { x : self.outlineCoords[self.outlinesIndex].x + xVal, 
                             y : self.outlineCoords[self.outlinesIndex].y - 208.5, 
-                            fill : "#ffffff"});
+                            fill : "#ffffff", visibility:"visible"});
                         self.backLayer.appendChild(temp);
 
                         self.filledTenths.push({el : temp, num : i + 10 * self.outlinesIndex, on : false, activated : false});

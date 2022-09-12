@@ -201,6 +201,15 @@ export function blocksAPI(_els, _setup) {
             gsap.set(self.onesToTenArrow, {visibility : "hidden"});
             gsap.set(self.tenToOnesArrow, {visibility : "hidden"});
 
+            //TO DO : When reset, remove all animating blocks and reset the timeline
+            /*
+            try {
+                self.tl.pause();
+            } catch {
+
+            }
+            */
+
         }
 
         /** Adds 'block' to given arr at the specified 'num' place */
@@ -248,7 +257,7 @@ export function blocksAPI(_els, _setup) {
             */
 
             //add block to screen 
-            gsap.set(block, {x : xVal, y : yVal });
+            gsap.set(block, {x : xVal, y : yVal, visibility : "visible"});
             self.layer.appendChild(block);
 
             this.filledBlocks.push(block);
@@ -421,7 +430,7 @@ export function blocksAPI(_els, _setup) {
                 //Replace all tens with animating blocks (so the event listener is removed)
                 self.filledTens.forEach(block => {
                     var temp = self.tensRef.cloneNode(true);
-                    gsap.set(temp, {x : block.x, y : block.y})
+                    gsap.set(temp, {x : block.x, y : block.y, visibility : "visible"})
                     self.layer.appendChild(temp);
                     self.layer.removeChild(block.el);
                     tempArr.push(temp);
@@ -506,7 +515,7 @@ export function blocksAPI(_els, _setup) {
                 //create 10 tens in the position of the hundred
                 for (var i = 9; i >= 0; i--) {
                     var temp = self.tensRef.cloneNode(true);
-                    gsap.set(temp, {x : xVal - 13, y : yVal + 65 + i*8.65, scale : 0.95})
+                    gsap.set(temp, {x : xVal - 13, y : yVal + 65 + i*8.65, scale : 0.95, visibility : "visible"})
                     self.layer.appendChild(temp);
                     tempArr.push(temp);
                 }
@@ -581,7 +590,7 @@ export function blocksAPI(_els, _setup) {
                 //Replace all ones with animating blocks (so the event listener is removed)
                 self.filledOnes.forEach(block => {
                     var temp = self.onesRef.cloneNode(true);
-                    gsap.set(temp, {x : block.x, y : block.y})
+                    gsap.set(temp, {x : block.x, y : block.y, visibility : "visible"})
                     self.layer.appendChild(temp);
                     self.layer.removeChild(block.el);
                     tempArr.push(temp);
@@ -664,7 +673,7 @@ export function blocksAPI(_els, _setup) {
                 //create ones to animation with in the position of a ten
                 for (var i = 9; i >= 0; i--) {
                     var temp = self.onesRef.cloneNode(true);
-                    gsap.set(temp, {x : 491 +2.5 + i*9, y : 178 + 4.2 + index * 51.5, scale : 0.85})
+                    gsap.set(temp, {x : 491 +2.5 + i*9, y : 178 + 4.2 + index * 51.5, scale : 0.85, visibility : "visible"})
                     self.layer.appendChild(temp);
                     tempArr.push(temp);
                 }

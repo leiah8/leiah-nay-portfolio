@@ -178,7 +178,7 @@ export function blocksAPI(_els, _setup) {
             }
 
             //add block
-            gsap.set(block, {x : xVal, y : yVal });
+            gsap.set(block, {x : xVal, y : yVal, visibility:"visible"});
             this.filledBlocks.push(block);
             self.layer.appendChild(block);
 
@@ -234,7 +234,7 @@ export function blocksAPI(_els, _setup) {
             // draw a blank image at each coordinate 
             coords.forEach(c => {
                 var blankBlock = ref.cloneNode(true);
-                gsap.set(blankBlock, {x : c.x, y : c.y});
+                gsap.set(blankBlock, {x : c.x, y : c.y, visibility:"visible"});
                 self.layer.appendChild(blankBlock);
 
                 arr.push({el : blankBlock, num : index});
