@@ -52,6 +52,7 @@ export function blocksAPI(_els, _setup) {
         layer : HTMLElement;
         txt : HTMLElement;
         restartBtn : HTMLElement;
+        restartCover : HTMLElement;
 
         textXVal : number;
 
@@ -105,6 +106,7 @@ export function blocksAPI(_els, _setup) {
 
             this.txt = document.getElementById("innerTxt") as HTMLElement
             this.restartBtn = document.getElementById("restart") as HTMLElement
+            this.restartCover = document.getElementById("coverRestart") as HTMLElement
 
             this.layer = document.getElementById("layer1") as HTMLElement
 
@@ -394,7 +396,8 @@ export function blocksAPI(_els, _setup) {
         /** Add Event Listeners to Arrows */
         //TO DO : MAKE MORE MODULAR (GLOBALIZE x and y VALUES)
         arrowSetup() {
-
+            gsap.set(self.restartCover, {visibility : "hidden"});
+            
             //10 Tens --> 1 Hundred
             gsap.set(self.tensToHundredArrow, {visibility : "hidden"});
             self.tensToHundredArrow.addEventListener('click', function() {
@@ -403,6 +406,9 @@ export function blocksAPI(_els, _setup) {
 
                 //Initialize timeline
                 self.tl = gsap.timeline({paused : true,
+                    onStart : () => {
+                        gsap.set(self.restartCover, {visibility : "visible"});
+                    },
                     onComplete : () => {
                         //fill hundred block
                         self.fillBlock(index,  xVal, yVal , 100);
@@ -420,6 +426,8 @@ export function blocksAPI(_els, _setup) {
                         gsap.set(self.tensToHundredArrow, {visibility : "hidden"});
 
                         self.checkTrade();
+
+                        gsap.set(self.restartCover, {visibility : "hidden"});
                     }
                 });
 
@@ -479,6 +487,9 @@ export function blocksAPI(_els, _setup) {
 
                 //Initialize timeline
                 self.tl = gsap.timeline({paused : true,
+                    onStart : () => {
+                        gsap.set(self.restartCover, {visibility : "visible"});
+                    },
                     onComplete : () => {
                         //draw all tens
                         for (var i = 0; i < 10; i++) {
@@ -497,6 +508,7 @@ export function blocksAPI(_els, _setup) {
                         gsap.set(self.hundredToTensArrow, {visibility : "hidden"});
 
                         self.checkTrade();
+                        gsap.set(self.restartCover, {visibility : "hidden"});
                     }
                 });
                 
@@ -562,6 +574,9 @@ export function blocksAPI(_els, _setup) {
 
                 //Initialize timeline
                 self.tl = gsap.timeline({paused : true,
+                    onStart : () => {
+                        gsap.set(self.restartCover, {visibility : "visible"});
+                    },
                     onComplete : () => {
                         //draw ten block
                         self.fillBlock(index, xVal, yVal , 10);
@@ -579,7 +594,7 @@ export function blocksAPI(_els, _setup) {
                         gsap.set(self.onesToTenArrow, {visibility : "hidden"});
 
                         self.checkTrade();
-
+                        gsap.set(self.restartCover, {visibility : "hidden"});
                     }
                 });
                 
@@ -639,6 +654,9 @@ export function blocksAPI(_els, _setup) {
 
                 //Initialize timeline
                 self.tl = gsap.timeline({paused : true,
+                    onStart : () => {
+                        gsap.set(self.restartCover, {visibility : "visible"});
+                    },
                     onComplete : () => {
                         //fill ones 
                         for (var i = 0; i < 10; i++) {
@@ -657,6 +675,7 @@ export function blocksAPI(_els, _setup) {
                         gsap.set(self.onesToTenArrow, {visibility : "hidden"});
 
                         self.checkTrade();
+                        gsap.set(self.restartCover, {visibility : "hidden"});
                     }
                 });
 
