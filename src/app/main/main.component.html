@@ -1,14 +1,22 @@
-<ul>
-    <li><a href="https://leiah-nay-portfolio.herokuapp.com/moonGame">Moon Game</a></li>
-    <li><a href="https://leiah-nay-portfolio.herokuapp.com/moonFactory">Moon Factory</a></li>
-    <li><a href="https://leiah-nay-portfolio.herokuapp.com/planetFactory">Planet Factory</a></li>
-    <li><a href="https://leiah-nay-portfolio.herokuapp.com/decomposePlanets">Decompose a Number into Planets</a></li>
-    <li><a href="https://leiah-nay-portfolio.herokuapp.com/decomposeAsteroids">Decompose a Number into Asteroids</a></li>
-    <li><a href="https://leiah-nay-portfolio.herokuapp.com/decompose">Decompose a Number into Asteroids into Planets</a></li>
-    <li><a href="https://leiah-nay-portfolio.herokuapp.com/hundredBlocks">Interactive Hundreds Chart</a></li>
-    <li><a href="https://leiah-nay-portfolio.herokuapp.com/thousandBlocks">Interactive Thousands Chart</a></li>
-    <li><a href="https://leiah-nay-portfolio.herokuapp.com/decimalBlocks">Interactive Decimal Chart</a></li>
-    <li><a href="https://leiah-nay-portfolio.herokuapp.com/tradeHundredBlocks">Trading on a Hundreds Chart</a></li>
-    <li><a href="https://leiah-nay-portfolio.herokuapp.com/tenthSquares">Tenths Manipulative</a></li>
+<html>
+  <body>
+    <h1> Leiah's Interactives </h1>
+    <nav>
+      <ul>
+        <li><a routerLink="moonGame" routerLinkActive="active" ariaCurrentWhenActive="page">Moon Game</a></li>
+        <li><a routerLink="moonFactory" routerLinkActive="active" ariaCurrentWhenActive="page">Moon Factory</a></li>
+        <li><a routerLink="planetFactory" routerLinkActive="active" ariaCurrentWhenActive="page">Planet Factory</a></li>
+        <li><a routerLink="decomposePlanets" routerLinkActive="active" ariaCurrentWhenActive="page">Decompose a Number into Planets</a></li>
+        <li><a routerLink="decomposeAsteroids" routerLinkActive="active" ariaCurrentWhenActive="page">Decompose a Number into Asteroids</a></li>
+        <li><a routerLink="decompose" routerLinkActive="active" ariaCurrentWhenActive="page">Decompose a Number in Space</a></li>
+        <li><a routerLink="hundredBlocks" routerLinkActive="active" ariaCurrentWhenActive="page">Interactive Hundreds Chart</a></li>
+        <li><a routerLink="thousandBlocks" routerLinkActive="active" ariaCurrentWhenActive="page">Interactive Thousands Chart</a></li>
+        <li><a routerLink="decimalBlocks" routerLinkActive="active" ariaCurrentWhenActive="page">Interactive Decimal Chart</a></li>
+        <li><a routerLink="tradeHundredBlocks" routerLinkActive="active" ariaCurrentWhenActive="page">Trading on a Hundreds Chart</a></li>
+      </ul>
+    </nav>
 
-  </ul>
+    <router-outlet></router-outlet>
+  </body>
+</html>
+
